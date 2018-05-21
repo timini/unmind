@@ -1,0 +1,26 @@
+version: "3"
+
+services:
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://postgres:@db:5432/postgres
+      - SCHEMA=core
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+      - /app/build
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/build
